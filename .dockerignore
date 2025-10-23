@@ -1,0 +1,10 @@
+vendor
+node_modules
+bootstrap/cache/*
+!bootstrap/cache/.gitignore
+public/storage
+storage/*.key
+tests
+
+.osp
+.osp
