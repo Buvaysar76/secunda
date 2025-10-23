@@ -13,6 +13,7 @@ use MoonShine\Laravel\DependencyInjection\MoonShine;
 use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
 use App\MoonShine\Resources\UserResource;
 use App\MoonShine\Resources\TextResource;
+use App\MoonShine\Resources\BuildingResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 MoonShineUserRoleResource::class,
                 UserResource::class,
                 TextResource::class,
+                BuildingResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

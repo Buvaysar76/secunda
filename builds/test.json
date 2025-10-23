@@ -2,14 +2,9 @@
     "_comment": "php artisan moonshine:build test.json",
     "resources": [
         {
-            "name": "Test",
-            "menuName": "Тесты",
-            "table": "test",
+            "name": "Buildings",
+            "menuName": "Здания",
             "timestamps": true,
-
-            "withMigration": true,
-            "withModel": true,
-            "withResource": true,
 
             "fields": [
                 {
@@ -18,28 +13,16 @@
                     "methods": ["sortable"]
                 },
                 {
-                    "column": "title",
+                    "column": "address",
                     "type": "string"
                 },
                 {
-                    "column": "image",
-                    "type": "string",
-                    "nullable": true,
-                    "field": "Image"
+                    "column": "latitude",
+                    "type": "decimal"
                 },
                 {
-                    "column": "discount",
-                    "type": "decimal",
-                    "default": 0.0,
-                    "nullable": true,
-                    "hasFilter": true
-                },
-                {
-                    "column": "user_id",
-                    "type": "BelongsTo",
-                    "relation": {
-                        "table" : "users"
-                    }
+                    "column": "longitude",
+                    "type": "decimal"
                 }
             ]
         }
