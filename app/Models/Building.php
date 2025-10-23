@@ -3,17 +3,21 @@
 declare(strict_types=1);
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Building extends Model
 {
     protected $fillable = [
-		'address',
-		'latitude',
-		'longitude',
+        'address',
+        'latitude',
+        'longitude',
     ];
 
+    /**
+     * @return HasMany<Organization, $this>
+     */
     public function organizations(): HasMany
     {
         return $this->hasMany(Organization::class);

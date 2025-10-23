@@ -16,16 +16,25 @@ class Organization extends Model
         'building_id',
     ];
 
+    /**
+     * @return BelongsTo<Building, $this>
+     */
     public function building(): BelongsTo
     {
         return $this->belongsTo(Building::class, 'building_id');
     }
 
+    /**
+     * @return HasMany<OrganizationPhone, $this>
+     */
     public function phones(): HasMany
     {
         return $this->hasMany(OrganizationPhone::class);
     }
 
+    /**
+     * @return BelongsToMany<Activity, $this>
+     */
     public function activities(): BelongsToMany
     {
         return $this->belongsToMany(Activity::class, 'organization_activities');

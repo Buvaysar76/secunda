@@ -21,6 +21,7 @@ class ActivityResource extends ModelResource
 {
     protected string $model = Activity::class;
 
+    /** @var list<string> */
     protected array $with = ['parent'];
 
     public function getTitle(): string

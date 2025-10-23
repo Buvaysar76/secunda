@@ -15,11 +15,17 @@ class Activity extends Model
         'parent_id',
     ];
 
+    /**
+     * @return BelongsTo<Activity, $this>
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Activity::class, 'parent_id');
     }
 
+    /**
+     * @return BelongsToMany<Organization, $this>
+     */
     public function organizations(): BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'organization_activities');
