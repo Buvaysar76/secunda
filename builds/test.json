@@ -2,8 +2,8 @@
     "_comment": "php artisan moonshine:build test.json",
     "resources": [
         {
-            "name": "Buildings",
-            "menuName": "Здания",
+            "name": "Activities",
+            "menuName": "Деятельности",
             "timestamps": true,
 
             "fields": [
@@ -13,16 +13,16 @@
                     "methods": ["sortable"]
                 },
                 {
-                    "column": "address",
+                    "column": "name",
                     "type": "string"
                 },
                 {
-                    "column": "latitude",
-                    "type": "decimal"
-                },
-                {
-                    "column": "longitude",
-                    "type": "decimal"
+                    "column": "parent_id",
+                    "type": "BelongsTo",
+                    "relation": {
+                        "table" : "activities"
+                    },
+                    "nullable": true
                 }
             ]
         }
