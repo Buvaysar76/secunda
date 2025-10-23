@@ -2,8 +2,8 @@
     "_comment": "php artisan moonshine:build test.json",
     "resources": [
         {
-            "name": "Activities",
-            "menuName": "Деятельности",
+            "name": "OrganizationActivity",
+            "menuName": "Деятельность организации",
             "timestamps": true,
 
             "fields": [
@@ -13,16 +13,18 @@
                     "methods": ["sortable"]
                 },
                 {
-                    "column": "name",
-                    "type": "string"
-                },
-                {
-                    "column": "parent_id",
+                    "column": "organization_id",
                     "type": "BelongsTo",
                     "relation": {
-                        "table" : "activities"
-                    },
-                    "nullable": true
+                        "table": "organizations"
+                    }
+                },
+                {
+                    "column": "activity_id",
+                    "type": "BelongsTo",
+                    "relation": {
+                        "table": "activities"
+                    }
                 }
             ]
         }

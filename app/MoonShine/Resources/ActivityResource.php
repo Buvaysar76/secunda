@@ -6,13 +6,16 @@ namespace App\MoonShine\Resources;
 
 use App\Models\Activity;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
+use MoonShine\Laravel\Pages\Crud\DetailPage;
+use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
 /**
- * @extends ModelResource<Activity>
+ * @extends ModelResource<Activity, IndexPage, FormPage, DetailPage>
  */
 class ActivityResource extends ModelResource
 {
@@ -31,7 +34,7 @@ class ActivityResource extends ModelResource
             ID::make('id')
                 ->sortable(),
             Text::make('Название', 'name'),
-            BelongsTo::make('Родительская деятельность', 'parent', formatted: 'name', resource: ActivityResource::class)
+            BelongsTo::make('Родитель', 'parent', formatted: 'name', resource: ActivityResource::class)
                 ->nullable(),
         ];
     }

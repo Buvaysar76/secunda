@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use App\Models\Building;
+use App\Models\OrganizationPhone;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
-use MoonShine\UI\Fields\Number;
-use MoonShine\UI\Fields\Text;
+use MoonShine\UI\Fields\Phone;
 
 /**
- * @extends ModelResource<Building, IndexPage, FormPage, DetailPage>
+ * @extends ModelResource<OrganizationPhone, IndexPage, FormPage, DetailPage>
  */
-class BuildingResource extends ModelResource
+class OrganizationPhoneResource extends ModelResource
 {
-    protected string $model = Building::class;
+    protected string $model = OrganizationPhone::class;
 
     public function getTitle(): string
     {
-        return 'Здания';
+        return 'Телефоны';
     }
 
     public function indexFields(): iterable
@@ -31,9 +30,8 @@ class BuildingResource extends ModelResource
         return [
             ID::make('id')
                 ->sortable(),
-            Text::make('Адрес', 'address'),
-            Number::make('Широта', 'latitude'),
-            Number::make('Долгота', 'longitude'),
+            Phone::make('Телефон', 'phone')
+                ->mask('+7 999 999-99-99'),
         ];
     }
 
@@ -56,16 +54,14 @@ class BuildingResource extends ModelResource
     public function filters(): iterable
     {
         return [
-            Text::make('Адрес', 'address'),
         ];
     }
 
     public function rules(mixed $item): array
     {
         return [
-            'address' => ['string', 'required'],
-            'latitude' => ['numeric', 'required'],
-            'longitude' => ['numeric', 'required'],
+            'organization_id' => ['int', 'required'],
+            'phone' => ['string', 'required'],
         ];
     }
 }

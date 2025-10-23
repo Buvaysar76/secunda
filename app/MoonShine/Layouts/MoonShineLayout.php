@@ -10,6 +10,8 @@ use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\MenuManager\MenuItem;
 use Override;
 use App\MoonShine\Resources\BuildingResource;
+use App\MoonShine\Resources\OrganizationResource;
+use App\MoonShine\Resources\ActivityResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -20,7 +22,9 @@ final class MoonShineLayout extends AppLayout
             ...parent::menu(),
             MenuItem::make('Пользователи', UserResource::class),
             MenuItem::make('Тексты', TextResource::class),
+            MenuItem::make('Организации', OrganizationResource::class),
             MenuItem::make('Здания', BuildingResource::class),
+            MenuItem::make('Деятельности', ActivityResource::class),
         ];
     }
 

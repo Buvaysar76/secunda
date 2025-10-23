@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Activity extends Model
 {
@@ -17,5 +18,10 @@ class Activity extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Activity::class, 'parent_id');
+    }
+
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class, 'organization_activities');
     }
 }
