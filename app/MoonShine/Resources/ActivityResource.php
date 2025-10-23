@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Override;
 use App\Models\Activity;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
@@ -24,6 +25,7 @@ class ActivityResource extends ModelResource
     /** @var list<string> */
     protected array $with = ['parent'];
 
+    #[Override]
     public function getTitle(): string
     {
         return 'Деятельности';

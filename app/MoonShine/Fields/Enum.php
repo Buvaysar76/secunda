@@ -2,6 +2,7 @@
 
 namespace App\MoonShine\Fields;
 
+use Override;
 use BackedEnum;
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
@@ -15,6 +16,7 @@ use MoonShine\UI\Fields\Enum as BaseEnum;
  */
 class Enum extends BaseEnum
 {
+    #[Override]
     protected function resolvePreview(): string
     {
         /** @var string|int|iterable<(int|string), string|int>|Collection<int, string|int>|null $value */
@@ -38,7 +40,7 @@ class Enum extends BaseEnum
 
             if ($this->attached !== null) {
                 /** @var Collection<int, BackedEnum> $collection */
-                $collection = rescue(fn() => $collection->map(fn($v) => $this->attached::tryFrom($v))) ?? $collection;
+                $collection = rescue(fn() => $collection->map($this->attached::tryFrom(...))) ?? $collection;
             }
 
             return $collection

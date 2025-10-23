@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 
-use App\MoonShine\Resources\TextResource;
-use App\MoonShine\Resources\UserResource;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\MenuManager\MenuItem;
 use Override;

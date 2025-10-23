@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Override;
 use App\Models\Organization;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
@@ -28,6 +29,7 @@ class OrganizationResource extends ModelResource
     /** @var list<string> */
     protected array $with = ['building'];
 
+    #[Override]
     public function getTitle(): string
     {
         return 'Организации';

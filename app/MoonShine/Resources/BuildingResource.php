@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Override;
 use App\Models\Building;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Laravel\Pages\Crud\FormPage;
@@ -21,6 +22,7 @@ class BuildingResource extends ModelResource
 {
     protected string $model = Building::class;
 
+    #[Override]
     public function getTitle(): string
     {
         return 'Здания';

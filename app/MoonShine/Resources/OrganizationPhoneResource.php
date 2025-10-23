@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Override;
 use App\Models\OrganizationPhone;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Laravel\Pages\Crud\FormPage;
@@ -20,6 +21,7 @@ class OrganizationPhoneResource extends ModelResource
 {
     protected string $model = OrganizationPhone::class;
 
+    #[Override]
     public function getTitle(): string
     {
         return 'Телефоны';
