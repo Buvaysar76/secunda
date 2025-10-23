@@ -23,8 +23,6 @@
         "moonshine/ru": "^1.0",
         "moonshine/two-factor": "^2.0",
         "spatie/laravel-backup": "^9.3",
-        "spatie/laravel-medialibrary": "^11.14",
-        "visual-ideas/moonshine-spatie-medialibrary": "^3.0",
         "zircote/swagger-php": "^5.2"
     },
     "require-dev": {

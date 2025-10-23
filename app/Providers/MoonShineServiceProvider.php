@@ -11,8 +11,6 @@ use MoonShine\Contracts\Core\DependencyInjection\ConfiguratorContract;
 use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
 use MoonShine\Laravel\DependencyInjection\MoonShine;
 use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
-use App\MoonShine\Resources\UserResource;
-use App\MoonShine\Resources\TextResource;
 use App\MoonShine\Resources\BuildingResource;
 use App\MoonShine\Resources\OrganizationResource;
 use App\MoonShine\Resources\OrganizationPhoneResource;
@@ -32,8 +30,6 @@ class MoonShineServiceProvider extends ServiceProvider
             ->resources([
                 MoonShineUserResource::class,
                 MoonShineUserRoleResource::class,
-                UserResource::class,
-                TextResource::class,
                 BuildingResource::class,
                 OrganizationResource::class,
                 OrganizationPhoneResource::class,
