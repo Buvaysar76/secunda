@@ -19,6 +19,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+            $table->integer('level')->default(1);
             $table->timestamps();
         });
     }

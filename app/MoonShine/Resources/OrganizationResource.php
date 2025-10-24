@@ -27,7 +27,7 @@ class OrganizationResource extends ModelResource
     protected string $model = Organization::class;
 
     /** @var list<string> */
-    protected array $with = ['building'];
+    protected array $with = ['building', 'phones', 'activities'];
 
     #[Override]
     public function getTitle(): string
