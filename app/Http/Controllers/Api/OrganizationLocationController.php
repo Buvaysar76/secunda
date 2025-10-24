@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrganizationResource;
 use App\Models\Organization;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\Items;
 use OpenApi\Attributes\JsonContent;
@@ -63,7 +65,7 @@ class OrganizationLocationController extends Controller
         response: 400,
         description: 'Ошибка запроса'
     )]
-    public function organizationsByBoundingBox(Request $request): JsonResponse
+    public function organizationsByBoundingBox(Request $request): JsonResponse|AnonymousResourceCollection
     {
         $latMin = $request->query('lat_min');
         $latMax = $request->query('lat_max');
@@ -81,7 +83,7 @@ class OrganizationLocationController extends Controller
             })
             ->get();
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 
     #[Get(
@@ -124,7 +126,7 @@ class OrganizationLocationController extends Controller
         response: 400,
         description: 'Ошибка запроса'
     )]
-    public function organizationsByRadius(Request $request): JsonResponse
+    public function organizationsByRadius(Request $request): JsonResponse|AnonymousResourceCollection
     {
         $lat = $request->query('lat');
         $lng = $request->query('lng');
@@ -149,6 +151,6 @@ class OrganizationLocationController extends Controller
             ->having('distance', '<=', $radius)
             ->get();
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 }

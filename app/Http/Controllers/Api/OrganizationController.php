@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrganizationResource;
 use App\Models\Activity;
 use App\Models\Organization;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use OpenApi\Attributes\Get;
 use OpenApi\Attributes\Items;
 use OpenApi\Attributes\JsonContent;
@@ -40,7 +42,7 @@ class OrganizationController extends Controller
         ])
     )]
     #[Response(response: 404, description: 'Organizations not found')]
-    public function byBuilding($buildingId): JsonResponse
+    public function byBuilding($buildingId): JsonResponse|AnonymousResourceCollection
     {
         $organizations = Organization::with(['building', 'phones', 'activities'])
             ->where('building_id', $buildingId)
@@ -50,7 +52,7 @@ class OrganizationController extends Controller
             return response()->json(['message' => 'Organizations not found'], 404);
         }
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 
     #[Get(
@@ -76,7 +78,7 @@ class OrganizationController extends Controller
         ])
     )]
     #[Response(response: 404, description: 'Organizations not found')]
-    public function byActivity($activityId): JsonResponse
+    public function byActivity($activityId): JsonResponse|AnonymousResourceCollection
     {
         $activity = Activity::findOrFail($activityId);
 
@@ -88,7 +90,7 @@ class OrganizationController extends Controller
             return response()->json(['message' => 'Organizations not found'], 404);
         }
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 
     #[Get(
@@ -112,11 +114,11 @@ class OrganizationController extends Controller
         content: new JsonContent(ref: '#/components/schemas/Organization')
     )]
     #[Response(response: 404, description: 'Not Found')]
-    public function show($id)
+    public function show($id): OrganizationResource
     {
         $organization = Organization::with(['building', 'phones', 'activities'])->findOrFail($id);
 
-        return response()->json($organization);
+        return new OrganizationResource($organization);
     }
 
     #[Get(
@@ -142,7 +144,7 @@ class OrganizationController extends Controller
         ])
     )]
     #[Response(response: 400, description: 'Query parameter "q" is required')]
-    public function searchByActivity(Request $request): JsonResponse
+    public function searchByActivity(Request $request): AnonymousResourceCollection|JsonResponse
     {
         $q = $request->query('q');
 
@@ -150,24 +152,29 @@ class OrganizationController extends Controller
             return response()->json(['error' => 'Query parameter "q" is required'], 400);
         }
 
-        $activities = Activity::where('name', 'like', "%{$q}%")->get();
+        $activities = Activity::where('name', 'like', "%{$q}%")
+            ->with('children.children')
+            ->get();
 
-        $organizationIds = collect();
+        $activityIds = collect();
 
         foreach ($activities as $activity) {
-            $orgIds = Organization::whereHas('activities', function ($q) use ($activity) {
-                $activityIds = $activity->getDescendantIds();
-                $q->whereIn('activities.id', $activityIds);
-            })->pluck('id');
+            $activityIds->push($activity->id);
 
-            $organizationIds = $organizationIds->merge($orgIds);
+            foreach ($activity->children as $child1) {
+                $activityIds->push($child1->id);
+
+                foreach ($child1->children as $child2) {
+                    $activityIds->push($child2->id);
+                }
+            }
         }
 
         $organizations = Organization::with(['building', 'phones', 'activities'])
-            ->whereIn('id', $organizationIds->unique())
+            ->whereHas('activities', fn($q) => $q->whereIn('activities.id', $activityIds->unique()))
             ->get();
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 
     #[Get(
@@ -193,7 +200,7 @@ class OrganizationController extends Controller
         ])
     )]
     #[Response(response: 400, description: 'Query parameter "q" is required')]
-    public function searchByName(Request $request)
+    public function searchByName(Request $request): JsonResponse|AnonymousResourceCollection
     {
         $q = $request->query('q');
 
@@ -205,6 +212,6 @@ class OrganizationController extends Controller
             ->where('name', 'like', "%{$q}%")
             ->get();
 
-        return response()->json($organizations);
+        return OrganizationResource::collection($organizations);
     }
 }
