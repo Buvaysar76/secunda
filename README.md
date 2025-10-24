@@ -72,7 +72,7 @@ docker-compose exec app php artisan db:seed
 ```
 > Для запуска конкретного сидера:
 ```bash
-docker-compose exec app php artisan db:seed --class=BuildingsTableSeeder
+docker-compose exec app php artisan db:seed --class=BuildingsSeeder
 ```
 
 ---
