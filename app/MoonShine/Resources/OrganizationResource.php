@@ -29,6 +29,8 @@ class OrganizationResource extends ModelResource
     /** @var list<string> */
     protected array $with = ['building', 'phones', 'activities'];
 
+    protected bool $columnSelection = true;
+
     #[Override]
     public function getTitle(): string
     {
