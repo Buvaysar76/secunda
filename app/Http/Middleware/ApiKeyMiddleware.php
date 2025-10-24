@@ -17,7 +17,7 @@ class ApiKeyMiddleware
     {
         $apiKey = $request->header('Authorization');
 
-        if ($apiKey !== 'Bearer '.env('API_KEY')) {
+        if ($apiKey !== 'Bearer '.config('app.api_key')) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 

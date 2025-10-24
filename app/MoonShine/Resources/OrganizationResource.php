@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Override;
 use App\Models\Organization;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
@@ -18,6 +17,7 @@ use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Link;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
+use Override;
 
 /**
  * @extends ModelResource<Organization, IndexPage, FormPage, DetailPage>
@@ -49,11 +49,11 @@ class OrganizationResource extends ModelResource
                 ->inLine(
                     separator: ' ',
                     badge: fn($model, $value) => Badge::make((string) $value, 'primary'),
-                    link: fn($model, $value, $field): string|Link => Link::make(
+                    link: fn($model, $value, $field): Link => Link::make(
                         app(ActivityResource::class)->getDetailPageUrl($model->id),
                         $value
                     )
-                )
+                ),
         ];
     }
 
