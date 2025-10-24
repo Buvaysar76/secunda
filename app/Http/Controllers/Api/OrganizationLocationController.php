@@ -77,7 +77,7 @@ class OrganizationLocationController extends Controller
         }
 
         $organizations = Organization::with(['building', 'phones', 'activities'])
-            ->whereHas('building', function ($query) use ($latMin, $latMax, $lngMin, $lngMax) {
+            ->whereHas('building', function ($query) use ($latMin, $latMax, $lngMin, $lngMax): void {
                 $query->whereBetween('latitude', [$latMin, $latMax])
                     ->whereBetween('longitude', [$lngMin, $lngMax]);
             })

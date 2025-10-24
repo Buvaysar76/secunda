@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Override;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,13 +45,14 @@ class Activity extends Model
         return $this->belongsToMany(Organization::class, 'organization_activities');
     }
 
+    #[Override]
     protected static function booted(): void
     {
-        static::creating(function (Activity $activity) {
+        static::creating(function (Activity $activity): void {
             $activity->setLevel();
         });
 
-        static::updating(function (Activity $activity) {
+        static::updating(function (Activity $activity): void {
             $activity->setLevel();
         });
     }

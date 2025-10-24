@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Override;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes\Items;
@@ -31,6 +32,7 @@ class OrganizationResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
