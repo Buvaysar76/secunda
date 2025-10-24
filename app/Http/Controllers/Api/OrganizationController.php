@@ -124,8 +124,8 @@ class OrganizationController extends Controller
     #[Get(
         path: '/organizations/search/by-activity',
         operationId: 'searchByActivity',
-        description: 'Искать организации по виду деятельности, включая вложенные подвиды',
-        summary: 'Поиск организаций по деятельности',
+        description: 'Возвращает организации по названию вида деятельности, включая вложенные подвиды',
+        summary: 'Поиск организаций по деятельности (по названию)',
         security: [['bearerAuth' => []]],
         tags: ['Organization']
     )]

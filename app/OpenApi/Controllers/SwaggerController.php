@@ -14,9 +14,8 @@ use OpenApi\Generator;
 #[SecurityScheme(
     securityScheme: 'bearerAuth',
     type: 'http',
-    name: 'bearerAuth',
-    in: 'header',
-    bearerFormat: 'JWT',
+    description: 'Доступ к API через статический API ключ',
+    bearerFormat: 'API_KEY',
     scheme: 'bearer'
 )]
 class SwaggerController extends Controller
@@ -28,7 +27,6 @@ class SwaggerController extends Controller
             app_path('OpenApi/Attributes'),
             app_path('Http/Controllers'),
             app_path('Http/Resources'),
-            app_path('Models/'),
         ];
 
         // Генерируем OpenAPI-объект

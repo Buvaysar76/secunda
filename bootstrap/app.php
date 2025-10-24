@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'moonshine.basic' => MoonshineBasicAuth::class,
-            'api_key' => ApiKeyMiddleware::class,
+            'api.key' => ApiKeyMiddleware::class,
         ]);
         $middleware->trustProxies(at: [
             '127.0.0.1',

@@ -15,10 +15,10 @@ class ApiKeyMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $apiKey = $request->header('X-API-Key') ?? $request->query('api_key');
+        $apiKey = $request->header('Authorization');
 
-        if ($apiKey !== env('API_KEY')) {
-            return response()->json(['error' => 'Invalid API key'], 401);
+        if ($apiKey !== 'Bearer '.env('API_KEY')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $next($request);
